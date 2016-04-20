@@ -21,7 +21,15 @@ On peut stocker et gérer des nombres. On peut en effet faire des opérations su
 ```
 ### Liste
 Des listes de strings peuvent être définis, elles sont triés par ordre de définition.
-
+```java
+	// On rajoute des éléments à une liste
+	jedis.lpush("Niveau", "Licence");
+	jedis.lpush("Niveau", "Master");
+	jedis.lpush("Niveau", "Doctorat");
+	
+	// On supprime le dernier élément rajouté
+	jedis.lpop("Niveau");
+```
 ### Collection de strings
 Les collections peuvent être aussi des collections triées.
 On peut ajouter, supprimer, modifier ces collections.
