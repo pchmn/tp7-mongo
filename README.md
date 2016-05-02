@@ -1,4 +1,4 @@
-# tp7-mongo
+# TP Mongo - Redis
 
 ## MongoDB
 
@@ -108,3 +108,5 @@ On peut stocker des objets entiers et modifier certains attributs
 	jedis.hgetAll("user:" + username).get("lastName"));
 ```
 
+<br>
+###### Clément Goachet - Paul Chemin
