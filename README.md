@@ -1,6 +1,59 @@
 # tp7-mongo
 
+## MongoDB
 
+### Object Document Mapper
+On utilise lors de ce tp l'ODM [`Morphia`](http://mongodb.github.io/morphia/). Un ODM a la même fonction q'un ORM mais pour une base orienté document.
+
+### Annotations
+On utilise les annotations `Morphia` sur une classe Java pour pouvoir la "mapper". 
+* `@Entity("nom_entité")` : représente le nom du document
+* `@Id` : représente l'id de l'objet dans le document
+* `@Embedded` : représente un sous-document inséré dans un document
+```java
+@Entity("persons")
+public class Person {
+    @Id
+    private ObjectId id;
+    private String name;
+    @Embedded
+    private Address address;
+}
+
+@Embedded
+public class Address {
+    private String street;
+    private String city;
+    private String postCode;
+    private String country;
+}
+```
+
+### Fonctionnement de Morphia
+#### Instanciation
+On instancie un objet `Moprhia` :
+```java
+Morphia morphia = new Morphia();
+```
+Ensuite on mappe les classes désirées : 
+```java
+morphia.map(Person.class).map(Address.class);
+```
+Puis on crée un `DataStore` (similaire à `EntityManager` pour JPA) : 
+```java
+Datastore ds = morphia.createDatastore(new MongoClient(), "tp7_sir");
+```
+
+#### Persister un objet
+Pour persister un objet il suffit d'appeler la fonction `save` de `DataStore` : 
+```java
+Person p1 = new Person("Peter");
+Address a1 = new Address("Rue des rossignols", "Paris", "75000", "France");
+p1.setAddress(a1);
+
+// on persiste p1
+ds.save(p1);
+```
 
 ## Redis
 
